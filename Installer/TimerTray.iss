@@ -16,7 +16,7 @@ Source: "Watch.ico"; DestDir: "{app}"
 Source: "Stopwatch.jpg"; DestDir: "{app}"
 
 [Icons]
-Name: "{group}\TimerTray"; Filename: "{app}\TimerTray.exe"
+Name: "{group}\TimerTray"; Filename: "{app}\TimerTray.ico"
 
 [Registry]
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; Flags: uninsdeletekey; ValueType: string; ValueName: "TimerTray"; ValueData: "{app}\TimerTray.exe"
