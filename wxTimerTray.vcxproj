@@ -19,23 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\wxTimerTray_Old\MyTaskbarIcon.h" />
-    <ClInclude Include="..\wxTimerTray_Old\TimerTrayAboutDlg.h" />
-    <ClInclude Include="..\wxTimerTray_Old\TimerTrayApp.h" />
-    <ClInclude Include="..\wxTimerTray_Old\TimerTrayMainFrame.h" />
-    <ClInclude Include="..\wxTimerTray_Old\TimerTrayUI.h" />
+    <ClInclude Include="MyTaskbarIcon.h" />
+    <ClInclude Include="TimerTrayAboutDlg.h" />
+    <ClInclude Include="TimerTrayApp.h" />
+    <ClInclude Include="TimerTrayMainFrame.h" />
+    <ClInclude Include="TimerTrayUI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\wxTimerTray_Old\MyTaskBarIcon.cpp" />
-    <ClCompile Include="..\wxTimerTray_Old\TimerTrayAboutDlg.cpp" />
-    <ClCompile Include="..\wxTimerTray_Old\TimerTrayApp.cpp" />
-    <ClCompile Include="..\wxTimerTray_Old\TimerTrayMainFrame.cpp" />
-    <ClCompile Include="..\wxTimerTray_Old\TimerTrayUI.cpp" />
+    <ClCompile Include="MyTaskBarIcon.cpp" />
+    <ClCompile Include="TimerTrayAboutDlg.cpp" />
+    <ClCompile Include="TimerTrayApp.cpp" />
+    <ClCompile Include="TimerTrayMainFrame.cpp" />
+    <ClCompile Include="TimerTrayUI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Watch.ico">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-    </Image>
+    <None Include="UserInterface.fbp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

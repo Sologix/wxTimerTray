@@ -37,6 +37,7 @@ class TimerTrayMainFrame : public MainFrame
 		void TimerElapsed() const;
 		void ReloadTimer();
 		void UpdateLabel() const;
+		void UpdateNotificationToolTip();
 		void OnTimer( wxTimerEvent& event );
 		void OnStartResetBtnClicked(wxCommandEvent& event) override;
 		void OnHoursSelected(wxCommandEvent& event) override;

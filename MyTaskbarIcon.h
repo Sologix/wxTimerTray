@@ -9,25 +9,29 @@
 
 class MyTaskBarIcon : public wxTaskBarIcon
 {
-     wxDECLARE_EVENT_TABLE();
+	wxDECLARE_EVENT_TABLE();
 
 public:
 #if defined(__WXOSX__) && wxOSX_USE_COCOA
-    MyTaskBarIcon( wxTaskBarIconType iconType = wxTBI_DEFAULT_TYPE ) : wxTaskBarIcon( iconType ), m_pMainFrame( nullptr ), m_pAboutDlg( nullptr ) { OnLoad(); }
+	MyTaskBarIcon( wxTaskBarIconType iconType = wxTBI_DEFAULT_TYPE ) : wxTaskBarIcon( iconType ), m_pMainFrame( nullptr ), m_pAboutDlg( nullptr ) { OnLoad(); }
 #else
-    MyTaskBarIcon() : m_pMainFrame(nullptr), m_pAboutDlg(nullptr) { OnLoad(); }
+	MyTaskBarIcon() : m_pMainFrame( nullptr ), m_bCleanupDone(false) { OnLoad(); }
 #endif
+	~MyTaskBarIcon();
 
-    TimerTrayMainFrame* m_pMainFrame;
-    TimerTrayAboutDlg* m_pAboutDlg;
+	TimerTrayMainFrame* m_pMainFrame;
 
-    void OnLoad();
-     void ShowMainFrame();
+	void OnLoad();
+	void ShowMainFrame();
+	void Shutdown();
 
-     void OnLeftButtonDClick( wxTaskBarIconEvent& );
-    void OnMenuOpen( wxCommandEvent& );
-    void OnMenuAbout( wxCommandEvent& );
-    void OnMenuExit( wxCommandEvent& );
-    wxMenu* CreatePopupMenu() wxOVERRIDE;
+	void OnLeftButtonDClick( wxTaskBarIconEvent& );
+	void OnMenuOpen( wxCommandEvent& );
+	void OnMenuAbout( wxCommandEvent& );
+	void OnMenuExit( wxCommandEvent& );
+	wxMenu* CreatePopupMenu() wxOVERRIDE;
+private:
+	bool m_bCleanupDone;
+
 };
 #endif // __MYTASKBARICON__

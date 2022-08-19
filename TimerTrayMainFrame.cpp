@@ -42,12 +42,9 @@ void TimerTrayMainFrame::OnClose( wxCloseEvent& event )
 	if ( event.CanVeto() == false )
 	{
 		SaveLastTimerSetting();
-		Destroy();
 	}
-	else
-	{
-		Hide();
-	}
+
+	Hide();
 }
 
 void TimerTrayMainFrame::LoadLastTimerSetting() const
@@ -168,19 +165,25 @@ void TimerTrayMainFrame::UpdateLabel() const
 	m_countDownLbl->SetLabelText( wxString::Format( wxT( "%02i:%02i:%02i" ), m_hours, m_minutes, m_seconds ) );
 }
 
+void TimerTrayMainFrame::UpdateNotificationToolTip()
+{
+	m_taskBarIcon->SetIcon( *g_Icon, wxString::Format( wxT( "%02i:%02i:%02i" ), m_hours, m_minutes, m_seconds ) );
+}
+
 void TimerTrayMainFrame::OnTimer( wxTimerEvent& event )
 {
 	if ( Countdown() == true )
 	{
 		wxLogDebug( "Timer elapsed" );
 		StopTimer();
-		ReloadTimer();
 		UpdateLabel();
+		UpdateNotificationToolTip();
+		ReloadTimer();
 		TimerElapsed();
 		return;
 	}
 
-	m_taskBarIcon->SetIcon( *g_Icon, wxString::Format( wxT( "%02i:%02i:%02i" ), m_hours, m_minutes, m_seconds ) );
+	UpdateNotificationToolTip();
 	UpdateLabel();
 
 	if ( IsIconized() == false && m_iconizeOnTimerTick == true )

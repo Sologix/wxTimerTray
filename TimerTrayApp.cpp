@@ -6,7 +6,6 @@ IMPLEMENT_APP( TimerTrayApp )
 
 TimerTrayApp::TimerTrayApp() : m_taskBarIcon( nullptr )
 {
-	
 }
 
 bool TimerTrayApp::OnInit()

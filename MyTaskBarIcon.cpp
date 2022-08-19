@@ -19,10 +19,14 @@ wxBEGIN_EVENT_TABLE( MyTaskBarIcon, wxTaskBarIcon )
 	EVT_TASKBAR_LEFT_DCLICK( MyTaskBarIcon::OnLeftButtonDClick )
 wxEND_EVENT_TABLE()
 
+MyTaskBarIcon::~MyTaskBarIcon()
+{
+}
+
+
 void MyTaskBarIcon::OnLoad()
 {
     m_pMainFrame = new TimerTrayMainFrame( nullptr, this );
-    m_pAboutDlg = new TimerTrayAboutDlg( m_pMainFrame );
 }
 
 void MyTaskBarIcon::OnMenuOpen( wxCommandEvent& )
@@ -41,28 +45,37 @@ void MyTaskBarIcon::ShowMainFrame()
 	m_pMainFrame->Show( true );
 }
 
+void MyTaskBarIcon::Shutdown()
+{
+    m_pMainFrame->Destroy();
+    Destroy();
+}
+
 void MyTaskBarIcon::OnMenuAbout( wxCommandEvent& )
 {
+    TimerTrayAboutDlg* pAboutDlg = new TimerTrayAboutDlg( m_pMainFrame );
+
 	const auto image = new wxImage( wxT("Stopwatch.jpg") );
     if (image->IsOk() )
     {
         image->Rescale( 191, 130 , wxIMAGE_QUALITY_BOX_AVERAGE );
 
-        m_pAboutDlg->SetAboutBitmap( wxBitmap( *image ) );
+        pAboutDlg->SetAboutBitmap( wxBitmap( *image ) );
     }
 
     delete image;
 
-    m_pAboutDlg->SetIcon( *g_Icon );
-    m_pAboutDlg->ShowModal();
-    m_pAboutDlg->Layout();
+    pAboutDlg->SetIcon( *g_Icon );
+    pAboutDlg->Layout();
+    pAboutDlg->ShowModal();
+
+    pAboutDlg->Destroy();
+    delete pAboutDlg;
 }
 
 void MyTaskBarIcon::OnMenuExit( wxCommandEvent& )
 {
-    m_pMainFrame->Close( true );
-    m_pAboutDlg->Destroy();
-    Destroy();
+    Shutdown();
 }
 
 wxMenu* MyTaskBarIcon::CreatePopupMenu()
