@@ -4,8 +4,9 @@
 #include <wx/wx.h>
 #include <wx/snglinst.h>
 #include "TimerTrayMainFrame.h"
+#include "Images/Watch.xpm"
 
-wxIcon* g_Icon = new wxIcon();
+wxIcon g_Icon = wxIcon(Watch);
 
 class TimerTrayApp : public wxApp
 {
@@ -15,7 +16,7 @@ class TimerTrayApp : public wxApp
 	int OnExit(void)  wxOVERRIDE;
 	
   protected:
-	MyTaskBarIcon* m_taskBarIcon;
+	TimerTrayMainFrame* m_pMainFrame;
 	wxSingleInstanceChecker* m_pChecker;
 };
 
