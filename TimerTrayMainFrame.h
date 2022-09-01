@@ -10,9 +10,11 @@ class MyTaskBarIcon;
 class TimerTrayMainFrame : public MainFrame
 {
 	public:
-		TimerTrayMainFrame( wxWindow* parent, MyTaskBarIcon* taskBarIcon );
+		//TimerTrayMainFrame( wxWindow* parent, MyTaskBarIcon* taskBarIcon );
+		TimerTrayMainFrame(wxWindow* parent);
 		~TimerTrayMainFrame();
 		virtual void OnClose( wxCloseEvent& event );
+		void CreateTaskBarIcon();
 
 #if defined(__WXOSX__) && wxOSX_USE_COCOA
 		MyTaskBarIcon* m_dockIcon;

@@ -8,7 +8,7 @@
 
 extern wxIcon* g_Icon;
 
-TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent, MyTaskBarIcon* taskBarIcon ) : MainFrame( parent ), m_timer( new wxTimer() ), m_taskBarIcon( taskBarIcon )
+TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent ), m_timer( new wxTimer() )
 {
 	m_notificationMessage = new wxNotificationMessage( "TimerTray", "Countdown finished!" );
 
@@ -24,17 +24,19 @@ TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent, MyTaskBarIcon* taskBar
 	LoadLastTimerSetting();
 
 	ReloadTimer();
+
+	CreateTaskBarIcon();
 }
 
 TimerTrayMainFrame::~TimerTrayMainFrame()
 {
+	m_taskBarIcon->Destroy();
+	
 	delete m_timer;
 	delete m_notificationMessage;
 	this->Disconnect( wxEVT_TIMER, wxTimerEventHandler( TimerTrayMainFrame::OnTimer ) );
 
 	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( TimerTrayMainFrame::OnClose ) );
-
-	SaveLastTimerSetting();
 }
 
 void TimerTrayMainFrame::OnClose( wxCloseEvent& event )
@@ -42,9 +44,30 @@ void TimerTrayMainFrame::OnClose( wxCloseEvent& event )
 	if ( event.CanVeto() == false )
 	{
 		SaveLastTimerSetting();
+		Destroy();
 	}
 
 	Hide();
+}
+
+void TimerTrayMainFrame::CreateTaskBarIcon()
+{
+    m_taskBarIcon = new MyTaskBarIcon();
+
+    if ( m_taskBarIcon->SetIcon( *g_Icon,"00:00:00" ) == false )
+    {
+        wxLogError( "Could not set icon." );
+    }
+
+#if defined(__WXOSX__) && wxOSX_USE_COCOA
+    m_dockIcon = new MyTaskBarIcon( wxTBI_DOCK );
+    if ( !m_dockIcon->SetIcon( wxICON( icon ) ) )
+    {
+        wxLogError( "Could not set icon." );
+    }
+#endif
+
+	m_taskBarIcon->SetMainFrame(this);
 }
 
 void TimerTrayMainFrame::LoadLastTimerSetting() const

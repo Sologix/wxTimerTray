@@ -15,7 +15,8 @@ class TimerTrayApp : public wxApp
 	int OnExit(void)  wxOVERRIDE;
 	
   protected:
-	MyTaskBarIcon* m_taskBarIcon;
+	//MyTaskBarIcon* m_taskBarIcon;
+	TimerTrayMainFrame* m_pMainFrame;
 	wxSingleInstanceChecker* m_pChecker;
 };
 

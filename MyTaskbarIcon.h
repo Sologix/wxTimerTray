@@ -23,7 +23,7 @@ public:
 
 	void OnLoad();
 	void ShowMainFrame();
-	void Shutdown();
+	void SetMainFrame(TimerTrayMainFrame* pMainFrame);
 
 	void OnLeftButtonDClick( wxTaskBarIconEvent& );
 	void OnMenuOpen( wxCommandEvent& );

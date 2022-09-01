@@ -26,7 +26,6 @@ MyTaskBarIcon::~MyTaskBarIcon()
 
 void MyTaskBarIcon::OnLoad()
 {
-    m_pMainFrame = new TimerTrayMainFrame( nullptr, this );
 }
 
 void MyTaskBarIcon::OnMenuOpen( wxCommandEvent& )
@@ -45,10 +44,9 @@ void MyTaskBarIcon::ShowMainFrame()
 	m_pMainFrame->Show( true );
 }
 
-void MyTaskBarIcon::Shutdown()
+void MyTaskBarIcon::SetMainFrame(TimerTrayMainFrame* pMainFrame)
 {
-    m_pMainFrame->Destroy();
-    Destroy();
+    m_pMainFrame = pMainFrame;
 }
 
 void MyTaskBarIcon::OnMenuAbout( wxCommandEvent& )
@@ -75,7 +73,7 @@ void MyTaskBarIcon::OnMenuAbout( wxCommandEvent& )
 
 void MyTaskBarIcon::OnMenuExit( wxCommandEvent& )
 {
-    Shutdown();
+    m_pMainFrame->Destroy();
 }
 
 wxMenu* MyTaskBarIcon::CreatePopupMenu()
