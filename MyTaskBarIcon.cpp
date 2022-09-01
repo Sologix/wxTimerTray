@@ -23,11 +23,6 @@ MyTaskBarIcon::~MyTaskBarIcon()
 {
 }
 
-
-void MyTaskBarIcon::OnLoad()
-{
-}
-
 void MyTaskBarIcon::OnMenuOpen( wxCommandEvent& )
 {
     ShowMainFrame();

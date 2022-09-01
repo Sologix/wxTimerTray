@@ -38,22 +38,6 @@ bool TimerTrayApp::OnInit()
 
     m_pMainFrame = new TimerTrayMainFrame(nullptr);
 
-//    m_taskBarIcon = new MyTaskBarIcon();
-//
-//    if ( m_taskBarIcon->SetIcon( *g_Icon,"00:00:00" ) == false )
-//    {
-//        wxLogError( "Could not set icon." );
-//        return false;
-//    }
-//
-//#if defined(__WXOSX__) && wxOSX_USE_COCOA
-//    m_dockIcon = new MyTaskBarIcon( wxTBI_DOCK );
-//    if ( !m_dockIcon->SetIcon( wxICON( icon ) ) )
-//    {
-//        wxLogError( "Could not set icon." );
-//    }
-//#endif
-
 	return true;
 }
 

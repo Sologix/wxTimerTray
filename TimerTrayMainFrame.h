@@ -10,7 +10,6 @@ class MyTaskBarIcon;
 class TimerTrayMainFrame : public MainFrame
 {
 	public:
-		//TimerTrayMainFrame( wxWindow* parent, MyTaskBarIcon* taskBarIcon );
 		TimerTrayMainFrame(wxWindow* parent);
 		~TimerTrayMainFrame();
 		virtual void OnClose( wxCloseEvent& event );
