@@ -6,13 +6,13 @@
 #include "TimerTrayMainFrame.h"
 #include "MyTaskbarIcon.h"
 
-extern wxIcon* g_Icon;
+extern wxIcon g_Icon;
 
 TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent ), m_timer( new wxTimer() )
 {
 	m_notificationMessage = new wxNotificationMessage( "TimerTray", "Countdown finished!" );
 
-	SetIcon( *g_Icon );
+	SetIcon( g_Icon );
 
 	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( TimerTrayMainFrame::OnClose ) );
 
@@ -54,7 +54,7 @@ void TimerTrayMainFrame::CreateTaskBarIcon()
 {
     m_taskBarIcon = new MyTaskBarIcon();
 
-    if ( m_taskBarIcon->SetIcon( *g_Icon,"00:00:00" ) == false )
+    if ( m_taskBarIcon->SetIcon( g_Icon,"00:00:00" ) == false )
     {
         wxLogError( "Could not set icon." );
     }
@@ -190,7 +190,7 @@ void TimerTrayMainFrame::UpdateLabel() const
 
 void TimerTrayMainFrame::UpdateNotificationToolTip()
 {
-	m_taskBarIcon->SetIcon( *g_Icon, wxString::Format( wxT( "%02i:%02i:%02i" ), m_hours, m_minutes, m_seconds ) );
+	m_taskBarIcon->SetIcon( g_Icon, wxString::Format( wxT( "%02i:%02i:%02i" ), m_hours, m_minutes, m_seconds ) );
 }
 
 void TimerTrayMainFrame::OnTimer( wxTimerEvent& event )

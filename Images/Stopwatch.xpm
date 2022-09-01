@@ -1,6 +1,6 @@
-/* XPM */
-static char *Stopwatch[] = {
-/* columns rows colors chars-per-pixel */
+
+
+static const char *Stopwatch[] = {
 "196 375 236 2 ",
 "   c black",
 ".  c #010101",

@@ -2,8 +2,9 @@
 #include <wx/menu.h>
 #include "MyTaskbarIcon.h"
 #include "TimerTrayAboutDlg.h"
+#include "Images/Stopwatch.xpm"
 
-extern wxIcon* g_Icon;
+extern wxIcon g_Icon;
 
 enum
 {
@@ -48,17 +49,15 @@ void MyTaskBarIcon::OnMenuAbout( wxCommandEvent& )
 {
     TimerTrayAboutDlg* pAboutDlg = new TimerTrayAboutDlg( m_pMainFrame );
 
-	const auto image = new wxImage( wxT("Stopwatch.jpg") );
-    if (image->IsOk() )
+	auto image = wxBitmap(Stopwatch).ConvertToImage();
+    if (image.IsOk() )
     {
-        image->Rescale( 191, 130 , wxIMAGE_QUALITY_BOX_AVERAGE );
+        image.Rescale( 130, 249 );
 
-        pAboutDlg->SetAboutBitmap( wxBitmap( *image ) );
+        pAboutDlg->SetAboutBitmap( wxBitmap( image ) );
     }
 
-    delete image;
-
-    pAboutDlg->SetIcon( *g_Icon );
+    pAboutDlg->SetIcon( g_Icon );
     pAboutDlg->Layout();
     pAboutDlg->ShowModal();
 

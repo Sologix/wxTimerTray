@@ -30,12 +30,6 @@ bool TimerTrayApp::OnInit()
         return false;
     }
 
-	if ( g_Icon->LoadFile( wxT( "Watch.ico" ), wxBITMAP_TYPE_ICO ) == false )
-    {
-        wxMessageBox( "Icon \"Watch.ico\" could not be found!", "Error", wxOK | wxICON_ERROR );
-        return false;
-    }
-
     m_pMainFrame = new TimerTrayMainFrame(nullptr);
 
 	return true;
@@ -43,7 +37,6 @@ bool TimerTrayApp::OnInit()
 
 int TimerTrayApp::OnExit()
 {
-    delete g_Icon;
     delete m_pChecker;
 
 	return 0;
