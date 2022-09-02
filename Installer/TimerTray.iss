@@ -12,8 +12,6 @@ WizardImageFile=stopwatch.bmp
 Source: "TimerTray.exe"; DestDir: "{app}"
 Source: "Alarm.wav"; DestDir: "{app}"
 Source: "License.txt"; DestDir: "{app}"
-Source: "Watch.ico"; DestDir: "{app}"
-Source: "Stopwatch.jpg"; DestDir: "{app}"
 
 [Icons]
 Name: "{group}\TimerTray"; Filename: "{app}\TimerTray.ico"
