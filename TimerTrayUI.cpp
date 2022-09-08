@@ -118,9 +118,7 @@ AboutDlg::AboutDlg( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	wxBoxSizer* bSizer8;
 	bSizer8 = new wxBoxSizer( wxVERTICAL );
 
-	m_stopwatchBmp = new wxStaticBitmap( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxSize( -1,-1 ), 0 );
-	m_stopwatchBmp->SetMaxSize( wxSize( 191,130 ) );
-
+	m_stopwatchBmp = new wxStaticBitmap( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxSize( 191,130 ), 0 );
 	bSizer8->Add( m_stopwatchBmp, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 15 );
 
 

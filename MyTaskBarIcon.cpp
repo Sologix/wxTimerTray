@@ -52,7 +52,7 @@ void MyTaskBarIcon::OnMenuAbout( wxCommandEvent& )
 	auto image = wxBitmap(Stopwatch).ConvertToImage();
     if (image.IsOk() )
     {
-        image.Rescale( 130, 249 );
+        image.Resize( wxSize(191, 130), wxPoint(0,0) );
 
         pAboutDlg->SetAboutBitmap( wxBitmap( image ) );
     }

@@ -30,6 +30,8 @@ TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent )
 
 TimerTrayMainFrame::~TimerTrayMainFrame()
 {
+	SaveLastTimerSetting();
+
 	m_taskBarIcon->Destroy();
 	
 	delete m_timer;
@@ -41,12 +43,6 @@ TimerTrayMainFrame::~TimerTrayMainFrame()
 
 void TimerTrayMainFrame::OnClose( wxCloseEvent& event )
 {
-	if ( event.CanVeto() == false )
-	{
-		SaveLastTimerSetting();
-		Destroy();
-	}
-
 	Hide();
 }
 
