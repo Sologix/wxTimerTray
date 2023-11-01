@@ -173,3 +173,37 @@ AboutDlg::AboutDlg( wxWindow* parent, wxWindowID id, const wxString& title, cons
 AboutDlg::~AboutDlg()
 {
 }
+
+NotificationPanel::NotificationPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name ) : wxPanel( parent, id, pos, size, style, name )
+{
+	wxBoxSizer* bSizer10;
+	bSizer10 = new wxBoxSizer( wxVERTICAL );
+
+
+	bSizer10->Add( 0, 0, 1, wxEXPAND, 5 );
+
+	m_staticText10 = new wxStaticText( this, wxID_ANY, wxT("Countdown"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText10->Wrap( -1 );
+	m_staticText10->SetFont( wxFont( 22, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
+	m_staticText10->SetForegroundColour( wxColour( 255, 0, 0 ) );
+
+	bSizer10->Add( m_staticText10, 0, wxALIGN_CENTER|wxBOTTOM, 5 );
+
+	m_staticText11 = new wxStaticText( this, wxID_ANY, wxT("finished!"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText11->Wrap( -1 );
+	m_staticText11->SetFont( wxFont( 22, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
+	m_staticText11->SetForegroundColour( wxColour( 255, 0, 0 ) );
+
+	bSizer10->Add( m_staticText11, 0, wxALIGN_CENTER, 5 );
+
+
+	bSizer10->Add( 0, 0, 1, wxEXPAND, 5 );
+
+
+	this->SetSizer( bSizer10 );
+	this->Layout();
+}
+
+NotificationPanel::~NotificationPanel()
+{
+}

@@ -12,6 +12,13 @@ TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent )
 {
 	m_notificationMessage = new wxNotificationMessage( "TimerTray", "Countdown finished!" );
 
+	m_notificationWindow = new wxPopupWindow(this);
+	const auto sizer = new wxBoxSizer(wxVERTICAL);
+	sizer->Add(new NotificationPanel(m_notificationWindow));
+	m_notificationWindow->SetSizer(sizer);
+	m_notificationWindow->Layout();
+	m_notificationWindow->Fit();
+
 	SetIcon( g_Icon );
 
 	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( TimerTrayMainFrame::OnClose ) );
@@ -36,6 +43,7 @@ TimerTrayMainFrame::~TimerTrayMainFrame()
 	
 	delete m_timer;
 	delete m_notificationMessage;
+	delete m_notificationWindow;
 	this->Disconnect( wxEVT_TIMER, wxTimerEventHandler( TimerTrayMainFrame::OnTimer ) );
 
 	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( TimerTrayMainFrame::OnClose ) );
@@ -43,6 +51,11 @@ TimerTrayMainFrame::~TimerTrayMainFrame()
 
 void TimerTrayMainFrame::OnClose( wxCloseEvent& event )
 {
+	if (event.CanVeto() == false)
+	{
+		Destroy();
+	}
+
 	Hide();
 }
 
@@ -165,7 +178,10 @@ bool TimerTrayMainFrame::Countdown()
 
 void TimerTrayMainFrame::TimerElapsed() const
 {
-	m_notificationMessage->Show();
+	m_notificationMessage->Show(wxNotificationMessageBase::Timeout_Never);
+	//m_notificationWindow->Show();
+	//m_notificationWindow->Raise();
+	//m_taskBarIcon->ShowBalloon("TimerTray", "Countdown finished!");
 
 	wxSound::Play( "Alarm.wav" );
 }

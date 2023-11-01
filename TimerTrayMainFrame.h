@@ -3,6 +3,7 @@
 #include <wx/wx.h>
 #include <wx/timer.h>
 #include <wx/notifmsg.h>
+#include <wx/popupwin.h>
 #include "TimerTrayUI.h"
 
 class MyTaskBarIcon;
@@ -11,7 +12,7 @@ class TimerTrayMainFrame : public MainFrame
 {
 	public:
 		TimerTrayMainFrame(wxWindow* parent);
-		~TimerTrayMainFrame();
+		~TimerTrayMainFrame() override;
 		virtual void OnClose( wxCloseEvent& event );
 		void CreateTaskBarIcon();
 
@@ -23,6 +24,7 @@ class TimerTrayMainFrame : public MainFrame
 		wxTimer* m_timer = nullptr;
 		MyTaskBarIcon* m_taskBarIcon = nullptr;
 		wxNotificationMessage* m_notificationMessage = nullptr;
+		wxPopupWindow* m_notificationWindow = nullptr;
 		long m_hours = 0;
 		long m_minutes = 0;
 		long m_seconds = 0;

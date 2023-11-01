@@ -24,6 +24,7 @@
 #include <wx/frame.h>
 #include <wx/statbmp.h>
 #include <wx/dialog.h>
+#include <wx/panel.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -80,6 +81,24 @@ class AboutDlg : public wxDialog
 
 		AboutDlg( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("About"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
 		~AboutDlg();
+
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class NotificationPanel
+///////////////////////////////////////////////////////////////////////////////
+class NotificationPanel : public wxPanel
+{
+	private:
+
+	protected:
+		wxStaticText* m_staticText10;
+		wxStaticText* m_staticText11;
+
+	public:
+
+		NotificationPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 200,200 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
+		~NotificationPanel();
 
 };
 

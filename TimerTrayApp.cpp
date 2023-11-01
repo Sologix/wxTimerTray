@@ -13,6 +13,7 @@ bool TimerTrayApp::OnInit()
     m_pChecker = new wxSingleInstanceChecker();
     if ( m_pChecker->IsAnotherRunning() == true )
     {
+        delete m_pChecker;
         return false;
     }
 
