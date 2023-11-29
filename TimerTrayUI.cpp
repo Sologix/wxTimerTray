@@ -144,7 +144,7 @@ AboutDlg::AboutDlg( wxWindow* parent, wxWindowID id, const wxString& title, cons
 
 	bSizer9->Add( 0, 0, 1, wxEXPAND, 5 );
 
-	m_versionLbl = new wxStaticText( this, wxID_ANY, wxT("Version 2.0.0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_versionLbl = new wxStaticText( this, wxID_ANY, wxT("Version 2.1.0"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_versionLbl->Wrap( -1 );
 	m_versionLbl->SetFont( wxFont( 10, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
 

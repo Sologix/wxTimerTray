@@ -23,8 +23,6 @@ class TimerTrayMainFrame : public MainFrame
 	protected:
 		wxTimer* m_timer = nullptr;
 		MyTaskBarIcon* m_taskBarIcon = nullptr;
-		wxNotificationMessage* m_notificationMessage = nullptr;
-		wxPopupWindow* m_notificationWindow = nullptr;
 		long m_hours = 0;
 		long m_minutes = 0;
 		long m_seconds = 0;
@@ -40,7 +38,7 @@ class TimerTrayMainFrame : public MainFrame
 		void TimerElapsed() const;
 		void ReloadTimer();
 		void UpdateLabel() const;
-		void UpdateNotificationToolTip();
+		void UpdateNotificationToolTip() const;
 		void OnTimer( wxTimerEvent& event );
 		void OnStartResetBtnClicked(wxCommandEvent& event) override;
 		void OnHoursSelected(wxCommandEvent& event) override;

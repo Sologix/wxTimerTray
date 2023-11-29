@@ -2,11 +2,13 @@
 
 [Setup]
 AppName=TimerTray
-AppVerName=TimerTray Version 2.0
+AppVerName=TimerTray Version 2.1
 DefaultDirName={pf}\TimerTray
 DefaultGroupName=TimerTray
 UninstallDisplayIcon={app}\TimerTray.exe
 WizardImageFile=stopwatch.bmp
+WizardImageStretch=yes
+WizardImageAlphaFormat=none
 
 [Files]
 Source: "TimerTray.exe"; DestDir: "{app}"
