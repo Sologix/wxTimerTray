@@ -2,7 +2,6 @@
 #define __TimerTrayAboutDlg__
 
 #include <wx/wx.h>
-#include <wx/bitmap.h>
 #include "TimerTrayUI.h"
 
 class TimerTrayAboutDlg : public AboutDlg
@@ -11,8 +10,6 @@ class TimerTrayAboutDlg : public AboutDlg
 		TimerTrayAboutDlg( wxWindow* parent );
 
 		void SetAboutBitmap( const wxBitmap& bitmap );
-
-
 };
 
 #endif // __TimerTrayAboutDlg__

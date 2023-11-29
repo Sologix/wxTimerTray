@@ -3,7 +3,6 @@
 #include <wx/wx.h>
 #include <wx/timer.h>
 #include <wx/notifmsg.h>
-#include <wx/popupwin.h>
 #include "TimerTrayUI.h"
 
 class MyTaskBarIcon;

@@ -67,7 +67,7 @@ void MyTaskBarIcon::OnMenuAbout( wxCommandEvent& )
 
 void MyTaskBarIcon::OnMenuExit( wxCommandEvent& )
 {
-    m_pMainFrame->Destroy();
+    m_pMainFrame->Close(true);
 }
 
 wxMenu* MyTaskBarIcon::CreatePopupMenu()
