@@ -30,6 +30,7 @@ TimerTrayMainFrame::~TimerTrayMainFrame()
 {
 	SaveLastTimerSetting();
 	
+	delete m_taskBarIcon;
 	delete m_timer;
 	this->Disconnect( wxEVT_TIMER, wxTimerEventHandler( TimerTrayMainFrame::OnTimer ) );
 
