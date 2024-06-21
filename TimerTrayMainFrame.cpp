@@ -12,8 +12,6 @@ TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent )
 {
 	SetIcon( g_Icon );
 
-	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( TimerTrayMainFrame::OnClose ) );
-
 	m_timer->SetOwner( this );
 	this->Connect( wxEVT_TIMER, wxTimerEventHandler( TimerTrayMainFrame::OnTimer ) );
 
@@ -28,21 +26,23 @@ TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent )
 
 TimerTrayMainFrame::~TimerTrayMainFrame()
 {
-	SaveLastTimerSetting();
-	
-	delete m_taskBarIcon;
+	m_timer->Stop();
+	this->Disconnect(wxEVT_TIMER, wxTimerEventHandler(TimerTrayMainFrame::OnTimer));
 	delete m_timer;
-	this->Disconnect( wxEVT_TIMER, wxTimerEventHandler( TimerTrayMainFrame::OnTimer ) );
 
-	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( TimerTrayMainFrame::OnClose ) );
+	delete m_taskBarIcon;
+
+	SaveLastTimerSetting();
 }
+
 
 void TimerTrayMainFrame::OnClose( wxCloseEvent& event )
 {
 	if (event.CanVeto() == false)
 	{
-		m_taskBarIcon->Destroy();
-		Destroy();
+		event.Skip();
+
+		return;
 	}
 
 	Hide();

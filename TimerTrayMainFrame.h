@@ -11,7 +11,8 @@ class TimerTrayMainFrame : public MainFrame
 {
 	public:
 		TimerTrayMainFrame(wxWindow* parent);
-		~TimerTrayMainFrame() override;
+		~TimerTrayMainFrame();
+		void SaveLastTimerSetting() const;
 		virtual void OnClose( wxCloseEvent& event );
 		void CreateTaskBarIcon();
 
@@ -28,7 +29,6 @@ class TimerTrayMainFrame : public MainFrame
 		bool m_iconizeOnTimerTick = true;
 
 		void LoadLastTimerSetting() const;
-		void SaveLastTimerSetting() const;
 		void FillComboBoxValues() const;
 		void StartTimer();
 		void StopTimer();

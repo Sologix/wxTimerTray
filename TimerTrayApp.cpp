@@ -40,6 +40,8 @@ int TimerTrayApp::OnExit()
 {
     delete m_pChecker;
 
+    wxLogDebug("Shutting down");
+
 	return 0;
 }
 

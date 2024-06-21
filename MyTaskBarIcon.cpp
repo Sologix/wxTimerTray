@@ -20,10 +20,6 @@ wxBEGIN_EVENT_TABLE( MyTaskBarIcon, wxTaskBarIcon )
 	EVT_TASKBAR_LEFT_DCLICK( MyTaskBarIcon::OnLeftButtonDClick )
 wxEND_EVENT_TABLE()
 
-MyTaskBarIcon::~MyTaskBarIcon()
-{
-}
-
 void MyTaskBarIcon::OnMenuOpen( wxCommandEvent& )
 {
     ShowMainFrame();

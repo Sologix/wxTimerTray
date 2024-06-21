@@ -13,14 +13,10 @@ class MyTaskBarIcon : public wxTaskBarIcon
 
 public:
 #if defined(__WXOSX__) && wxOSX_USE_COCOA
-	MyTaskBarIcon( wxTaskBarIconType iconType = wxTBI_DEFAULT_TYPE ) : wxTaskBarIcon( iconType ), m_pMainFrame( nullptr ), m_pAboutDlg( nullptr ) { OnLoad(); }
+	MyTaskBarIcon( wxTaskBarIconType iconType = wxTBI_DEFAULT_TYPE ) : wxTaskBarIcon( iconType ), m_pMainFrame( nullptr ) { OnLoad(); }
 #else
 	MyTaskBarIcon() : m_pMainFrame(nullptr) {}
 #endif
-	~MyTaskBarIcon();
-
-	TimerTrayMainFrame* m_pMainFrame;
-
 	void ShowMainFrame();
 	void SetMainFrame(TimerTrayMainFrame* pMainFrame);
 
@@ -29,5 +25,9 @@ public:
 	void OnMenuAbout( wxCommandEvent& );
 	void OnMenuExit( wxCommandEvent& );
 	wxMenu* CreatePopupMenu() wxOVERRIDE;
+
+protected:
+	TimerTrayMainFrame* m_pMainFrame;
+
 };
 #endif // __MYTASKBARICON__
