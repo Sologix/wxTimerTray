@@ -1,10 +1,11 @@
-#include <wx/wx.h>
+#ifdef __WXMSW__
+#include <wx/msw/msvcrt.h>      // redefines the new() operator 
+#endif#include <wx/wx.h>
 #include <wx/menu.h>
 #include "MyTaskbarIcon.h"
 #include "TimerTrayAboutDlg.h"
 #include "Images/Stopwatch.xpm"
-
-extern wxIcon g_Icon;
+#include "Images/Watch.xpm"
 
 enum
 {
@@ -32,8 +33,8 @@ void MyTaskBarIcon::OnLeftButtonDClick( wxTaskBarIconEvent& )
 
 void MyTaskBarIcon::ShowMainFrame()
 {
-	m_pMainFrame->Raise();
-	m_pMainFrame->Show( true );
+    m_pMainFrame->Raise();
+    m_pMainFrame->Show( true );
 }
 
 void MyTaskBarIcon::SetMainFrame(TimerTrayMainFrame* pMainFrame)
@@ -43,7 +44,7 @@ void MyTaskBarIcon::SetMainFrame(TimerTrayMainFrame* pMainFrame)
 
 void MyTaskBarIcon::OnMenuAbout( wxCommandEvent& )
 {
-    TimerTrayAboutDlg* pAboutDlg = new TimerTrayAboutDlg( m_pMainFrame );
+    TimerTrayAboutDlg* pAboutDlg = new TimerTrayAboutDlg(m_pMainFrame);
 
 	auto image = wxBitmap(Stopwatch).ConvertToImage();
     if (image.IsOk() )
@@ -53,11 +54,10 @@ void MyTaskBarIcon::OnMenuAbout( wxCommandEvent& )
         pAboutDlg->SetAboutBitmap( wxBitmap( image ) );
     }
 
-    pAboutDlg->SetIcon( g_Icon );
+    pAboutDlg->SetIcon(wxIcon(Watch));
     pAboutDlg->Layout();
     pAboutDlg->ShowModal();
 
-    pAboutDlg->Destroy();
     delete pAboutDlg;
 }
 

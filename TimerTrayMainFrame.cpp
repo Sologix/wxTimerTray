@@ -1,3 +1,6 @@
+#ifdef __WXMSW__
+#include <wx/msw/msvcrt.h>      // redefines the new() operator 
+#endif
 #include <wx/wx.h>
 #include <wx/log.h>
 #include <wx/event.h>
@@ -5,14 +8,13 @@
 #include <wx/config.h>
 #include "TimerTrayMainFrame.h"
 #include "MyTaskbarIcon.h"
+#include "Images/Watch.xpm"
 
-extern wxIcon g_Icon;
-
-TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent ), m_timer( new wxTimer() )
+TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent )
 {
-	SetIcon( g_Icon );
+	SetIcon(wxIcon(Watch));
 
-	m_timer->SetOwner( this );
+	m_timer.SetOwner( this );
 	this->Connect( wxEVT_TIMER, wxTimerEventHandler( TimerTrayMainFrame::OnTimer ) );
 
 	FillComboBoxValues();
@@ -26,13 +28,10 @@ TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent )
 
 TimerTrayMainFrame::~TimerTrayMainFrame()
 {
-	m_timer->Stop();
-	this->Disconnect(wxEVT_TIMER, wxTimerEventHandler(TimerTrayMainFrame::OnTimer));
-	delete m_timer;
-
-	delete m_taskBarIcon;
-
 	SaveLastTimerSetting();
+
+	m_timer.Stop();
+	this->Disconnect(wxEVT_TIMER, wxTimerEventHandler(TimerTrayMainFrame::OnTimer));
 }
 
 
@@ -50,9 +49,10 @@ void TimerTrayMainFrame::OnClose( wxCloseEvent& event )
 
 void TimerTrayMainFrame::CreateTaskBarIcon()
 {
-    m_taskBarIcon = new MyTaskBarIcon();
-
-    if ( m_taskBarIcon->SetIcon( g_Icon,"00:00:00" ) == false )
+	std::unique_ptr<MyTaskBarIcon> temp(new MyTaskBarIcon);
+	m_taskBarIcon = std::move(temp);
+	
+    if ( m_taskBarIcon->SetIcon(wxIcon(Watch),"00:00:00" ) == false )
     {
         wxLogError( "Could not set icon." );
     }
@@ -113,14 +113,14 @@ void TimerTrayMainFrame::FillComboBoxValues() const
 
 void TimerTrayMainFrame::StartTimer()
 {
-	m_timer->Start( 1000 );
+	m_timer.Start( 1000 );
 	m_startResetBtn->SetLabelText( "Reset" );
 	m_iconizeOnTimerTick = true;
 }
 
 void TimerTrayMainFrame::StopTimer()
 {
-	m_timer->Stop();
+	m_timer.Stop();
 	m_startResetBtn->SetLabelText( "Start" );
 	m_iconizeOnTimerTick = false;
 }
@@ -129,7 +129,7 @@ void TimerTrayMainFrame::ToggleTimer()
 {
 	ReloadTimer();
 
-	if ( m_timer->IsRunning() == false && ( m_hours != 0 || m_minutes != 0 || m_seconds != 0 ) )
+	if ( m_timer.IsRunning() == false && ( m_hours != 0 || m_minutes != 0 || m_seconds != 0 ) )
 	{
 		StartTimer();
 	}
@@ -188,7 +188,7 @@ void TimerTrayMainFrame::UpdateLabel() const
 
 void TimerTrayMainFrame::UpdateNotificationToolTip() const
 {
-	m_taskBarIcon->SetIcon( g_Icon, wxString::Format( wxT( "%02i:%02i:%02i" ), m_hours, m_minutes, m_seconds ) );
+	m_taskBarIcon->SetIcon(wxIcon(Watch), wxString::Format( wxT( "%02i:%02i:%02i" ), m_hours, m_minutes, m_seconds ) );
 }
 
 void TimerTrayMainFrame::OnTimer( wxTimerEvent& event )
@@ -223,7 +223,7 @@ void TimerTrayMainFrame::OnStartResetBtnClicked( wxCommandEvent& event )
 
 void TimerTrayMainFrame::OnHoursSelected( wxCommandEvent& event )
 {
-	if ( m_timer->IsRunning() )
+	if ( m_timer.IsRunning() )
 	{
 		StopTimer();
 		ReloadTimer();
@@ -238,7 +238,7 @@ void TimerTrayMainFrame::OnHoursSelected( wxCommandEvent& event )
 
 void TimerTrayMainFrame::OnMinutesSelected( wxCommandEvent& event )
 {
-	if ( m_timer->IsRunning() )
+	if ( m_timer.IsRunning() )
 	{
 		StopTimer();
 		ReloadTimer();
@@ -253,7 +253,7 @@ void TimerTrayMainFrame::OnMinutesSelected( wxCommandEvent& event )
 
 void TimerTrayMainFrame::OnSecondsSelected( wxCommandEvent& event )
 {
-	if ( m_timer->IsRunning() )
+	if ( m_timer.IsRunning() )
 	{
 		StopTimer();
 		ReloadTimer();

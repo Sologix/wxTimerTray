@@ -1,10 +1,12 @@
-#include <wx/wx.h>
+#ifdef __WXMSW__
+#include <wx/msw/msvcrt.h>      // redefines the new() operator 
+#endif#include <wx/wx.h>
 #include "TimerTrayApp.h"
 #include "MyTaskbarIcon.h"
 
-IMPLEMENT_APP( TimerTrayApp )
+IMPLEMENT_APP(TimerTrayApp)
 
-TimerTrayApp::TimerTrayApp() : m_pMainFrame(nullptr), m_pChecker(nullptr)
+TimerTrayApp::TimerTrayApp()
 {
 }
 
@@ -14,6 +16,7 @@ bool TimerTrayApp::OnInit()
     if ( m_pChecker->IsAnotherRunning() == true )
     {
         delete m_pChecker;
+        m_pChecker = nullptr;
         return false;
     }
 
@@ -39,8 +42,6 @@ bool TimerTrayApp::OnInit()
 int TimerTrayApp::OnExit()
 {
     delete m_pChecker;
-
-    wxLogDebug("Shutting down");
 
 	return 0;
 }

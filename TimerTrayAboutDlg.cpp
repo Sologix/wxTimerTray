@@ -1,3 +1,6 @@
+#ifdef __WXMSW__
+#include <wx/msw/msvcrt.h>      // redefines the new() operator 
+#endif
 #include "TimerTrayAboutDlg.h"
 
 TimerTrayAboutDlg::TimerTrayAboutDlg( wxWindow* parent ) : AboutDlg( parent )

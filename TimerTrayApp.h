@@ -1,12 +1,11 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
-
+#ifdef __WXMSW__
+#include <wx/msw/msvcrt.h>      // redefines the new() operator 
+#endif
 #include <wx/wx.h>
 #include <wx/snglinst.h>
 #include "TimerTrayMainFrame.h"
-#include "Images/Watch.xpm"
-
-wxIcon g_Icon = wxIcon(Watch);
 
 class TimerTrayApp : public wxApp
 {
@@ -16,7 +15,7 @@ class TimerTrayApp : public wxApp
 	int OnExit(void)  wxOVERRIDE;
 	
   protected:
-	TimerTrayMainFrame* m_pMainFrame;
+	TimerTrayMainFrame* m_pMainFrame = nullptr;
 	wxSingleInstanceChecker* m_pChecker;
 };
 

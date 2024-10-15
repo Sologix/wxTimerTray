@@ -1,5 +1,8 @@
 #ifndef __TIMERTRAYMAINFRAME__
 #define __TIMERTRAYMAINFRAME__
+#ifdef __WXMSW__
+#include <wx/msw/msvcrt.h>      // redefines the new() operator 
+#endif
 #include <wx/wx.h>
 #include <wx/timer.h>
 #include <wx/notifmsg.h>
@@ -11,9 +14,9 @@ class TimerTrayMainFrame : public MainFrame
 {
 	public:
 		TimerTrayMainFrame(wxWindow* parent);
-		~TimerTrayMainFrame();
+		~TimerTrayMainFrame() override;
 		void SaveLastTimerSetting() const;
-		virtual void OnClose( wxCloseEvent& event );
+		void OnClose( wxCloseEvent& event ) override;
 		void CreateTaskBarIcon();
 
 #if defined(__WXOSX__) && wxOSX_USE_COCOA
@@ -21,8 +24,8 @@ class TimerTrayMainFrame : public MainFrame
 #endif
 
 	protected:
-		wxTimer* m_timer = nullptr;
-		MyTaskBarIcon* m_taskBarIcon = nullptr;
+		wxTimer m_timer;
+		std::unique_ptr<MyTaskBarIcon> m_taskBarIcon;
 		long m_hours = 0;
 		long m_minutes = 0;
 		long m_seconds = 0;
