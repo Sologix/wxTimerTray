@@ -6,7 +6,6 @@
 #include <wx/wx.h>
 #include <wx/event.h>
 #include <wx/taskbar.h>
-#include "TimerTrayAboutDlg.h"
 #include "TimerTrayMainFrame.h"
 
 class MyTaskBarIcon : public wxTaskBarIcon
@@ -17,10 +16,9 @@ public:
 #if defined(__WXOSX__) && wxOSX_USE_COCOA
 	MyTaskBarIcon( wxTaskBarIconType iconType = wxTBI_DEFAULT_TYPE ) : wxTaskBarIcon( iconType ), m_pMainFrame( nullptr ) { OnLoad(); }
 #else
-	MyTaskBarIcon() {}
+	MyTaskBarIcon(TimerTrayMainFrame* pMainFrame);
 #endif
-	void ShowMainFrame();
-	void SetMainFrame(TimerTrayMainFrame* pMainFrame);
+	void ShowMainFrame() const;
 
 	void OnLeftButtonDClick( wxTaskBarIconEvent& );
 	void OnMenuOpen( wxCommandEvent& );

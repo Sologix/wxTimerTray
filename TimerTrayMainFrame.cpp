@@ -30,8 +30,13 @@ TimerTrayMainFrame::~TimerTrayMainFrame()
 {
 	SaveLastTimerSetting();
 
-	m_timer.Stop();
+	if (m_timer.IsRunning())
+	{
+		m_timer.Stop();
+	}
 	this->Disconnect(wxEVT_TIMER, wxTimerEventHandler(TimerTrayMainFrame::OnTimer));
+
+	delete m_pTaskBarIcon;
 }
 
 
@@ -39,7 +44,7 @@ void TimerTrayMainFrame::OnClose( wxCloseEvent& event )
 {
 	if (event.CanVeto() == false)
 	{
-		event.Skip();
+		Destroy();
 
 		return;
 	}
@@ -49,10 +54,9 @@ void TimerTrayMainFrame::OnClose( wxCloseEvent& event )
 
 void TimerTrayMainFrame::CreateTaskBarIcon()
 {
-	std::unique_ptr<MyTaskBarIcon> temp(new MyTaskBarIcon);
-	m_taskBarIcon = std::move(temp);
+	m_pTaskBarIcon = new MyTaskBarIcon(this);
 	
-    if ( m_taskBarIcon->SetIcon(wxIcon(Watch),"00:00:00" ) == false )
+    if ( m_pTaskBarIcon->SetIcon(wxIcon(Watch),"00:00:00" ) == false )
     {
         wxLogError( "Could not set icon." );
     }
@@ -64,8 +68,6 @@ void TimerTrayMainFrame::CreateTaskBarIcon()
         wxLogError( "Could not set icon." );
     }
 #endif
-
-	m_taskBarIcon->SetMainFrame(this);
 }
 
 void TimerTrayMainFrame::LoadLastTimerSetting() const
@@ -167,7 +169,7 @@ bool TimerTrayMainFrame::Countdown()
 
 void TimerTrayMainFrame::TimerElapsed() const
 {
-	m_taskBarIcon->ShowBalloon("TimerTray", "Countdown finished!");
+	m_pTaskBarIcon->ShowBalloon("TimerTray", "Countdown finished!");
 
 	wxSound::Play( "Alarm.wav" );
 }
@@ -188,7 +190,7 @@ void TimerTrayMainFrame::UpdateLabel() const
 
 void TimerTrayMainFrame::UpdateNotificationToolTip() const
 {
-	m_taskBarIcon->SetIcon(wxIcon(Watch), wxString::Format( wxT( "%02i:%02i:%02i" ), m_hours, m_minutes, m_seconds ) );
+	m_pTaskBarIcon->SetIcon(wxIcon(Watch), wxString::Format( wxT( "%02i:%02i:%02i" ), m_hours, m_minutes, m_seconds ) );
 }
 
 void TimerTrayMainFrame::OnTimer( wxTimerEvent& event )

@@ -16,7 +16,7 @@ class TimerTrayApp : public wxApp
 	
   protected:
 	TimerTrayMainFrame* m_pMainFrame = nullptr;
-	wxSingleInstanceChecker* m_pChecker;
+	wxSingleInstanceChecker* m_pChecker = nullptr;
 };
 
 DECLARE_APP(TimerTrayApp)

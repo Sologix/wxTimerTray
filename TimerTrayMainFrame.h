@@ -25,7 +25,7 @@ class TimerTrayMainFrame : public MainFrame
 
 	protected:
 		wxTimer m_timer;
-		std::unique_ptr<MyTaskBarIcon> m_taskBarIcon;
+		MyTaskBarIcon* m_pTaskBarIcon;
 		long m_hours = 0;
 		long m_minutes = 0;
 		long m_seconds = 0;

@@ -21,6 +21,10 @@ wxBEGIN_EVENT_TABLE( MyTaskBarIcon, wxTaskBarIcon )
 	EVT_TASKBAR_LEFT_DCLICK( MyTaskBarIcon::OnLeftButtonDClick )
 wxEND_EVENT_TABLE()
 
+MyTaskBarIcon::MyTaskBarIcon(TimerTrayMainFrame* pMainFrame) : m_pMainFrame(pMainFrame)
+{
+}
+
 void MyTaskBarIcon::OnMenuOpen( wxCommandEvent& )
 {
     ShowMainFrame();
@@ -31,15 +35,11 @@ void MyTaskBarIcon::OnLeftButtonDClick( wxTaskBarIconEvent& )
 	ShowMainFrame();
 }
 
-void MyTaskBarIcon::ShowMainFrame()
+
+void MyTaskBarIcon::ShowMainFrame() const
 {
     m_pMainFrame->Raise();
     m_pMainFrame->Show( true );
-}
-
-void MyTaskBarIcon::SetMainFrame(TimerTrayMainFrame* pMainFrame)
-{
-    m_pMainFrame = pMainFrame;
 }
 
 void MyTaskBarIcon::OnMenuAbout( wxCommandEvent& )

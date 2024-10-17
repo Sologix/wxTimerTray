@@ -1,6 +1,7 @@
 #ifdef __WXMSW__
 #include <wx/msw/msvcrt.h>      // redefines the new() operator 
-#endif#include <wx/wx.h>
+#endif
+#include <wx/wx.h>
 #include "TimerTrayApp.h"
 #include "MyTaskbarIcon.h"
 
@@ -35,6 +36,7 @@ bool TimerTrayApp::OnInit()
     }
 
     m_pMainFrame = new TimerTrayMainFrame(nullptr);
+    m_pMainFrame->Show(false);
 
 	return true;
 }
