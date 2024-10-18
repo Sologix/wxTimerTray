@@ -36,7 +36,6 @@ bool TimerTrayApp::OnInit()
     }
 
     m_pMainFrame = new TimerTrayMainFrame(nullptr);
-    m_pMainFrame->Show(false);
 
 	return true;
 }
