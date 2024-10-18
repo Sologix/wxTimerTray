@@ -29,6 +29,8 @@ TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent )
 
 TimerTrayMainFrame::~TimerTrayMainFrame()
 {
+	delete m_pTaskBarIcon;
+
 	SaveLastTimerSetting();
 
 	if (m_timer.IsRunning())
@@ -36,8 +38,6 @@ TimerTrayMainFrame::~TimerTrayMainFrame()
 		m_timer.Stop();
 	}
 	this->Disconnect(wxEVT_TIMER, wxTimerEventHandler(TimerTrayMainFrame::OnTimer));
-
-	delete m_pTaskBarIcon;
 }
 
 
@@ -45,7 +45,7 @@ void TimerTrayMainFrame::OnClose( wxCloseEvent& event )
 {
 	if (event.CanVeto() == false)
 	{
-		Destroy();
+		event.Skip();
 
 		return;
 	}
