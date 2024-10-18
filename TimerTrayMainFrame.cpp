@@ -126,6 +126,7 @@ void TimerTrayMainFrame::StopTimer()
 	m_timer.Stop();
 	m_startResetBtn->SetLabelText( "Start" );
 	m_iconizeOnTimerTick = false;
+	m_pTaskBarIcon->SetIcon(wxIcon(hourglass), wxString::Format(wxT("%02i:%02i:%02i"), m_hours, m_minutes, m_seconds));
 }
 
 void TimerTrayMainFrame::ToggleTimer()
