@@ -8,11 +8,12 @@
 #include <wx/config.h>
 #include "TimerTrayMainFrame.h"
 #include "MyTaskbarIcon.h"
-#include "Images/Watch.xpm"
+#include "Images/hourglass.xpm"
+#include "Images/hourglass_inverted.xpm"
 
 TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent )
 {
-	SetIcon(wxIcon(Watch));
+	SetIcon(wxIcon(hourglass));
 
 	m_timer.SetOwner( this );
 	this->Connect( wxEVT_TIMER, wxTimerEventHandler( TimerTrayMainFrame::OnTimer ) );
@@ -56,7 +57,7 @@ void TimerTrayMainFrame::CreateTaskBarIcon()
 {
 	m_pTaskBarIcon = new MyTaskBarIcon(this);
 	
-    if ( m_pTaskBarIcon->SetIcon(wxIcon(Watch),"00:00:00" ) == false )
+    if ( m_pTaskBarIcon->SetIcon(wxIcon(hourglass),"00:00:00" ) == false )
     {
         wxLogError( "Could not set icon." );
     }
@@ -190,7 +191,14 @@ void TimerTrayMainFrame::UpdateLabel() const
 
 void TimerTrayMainFrame::UpdateNotificationToolTip() const
 {
-	m_pTaskBarIcon->SetIcon(wxIcon(Watch), wxString::Format( wxT( "%02i:%02i:%02i" ), m_hours, m_minutes, m_seconds ) );
+	if (m_showIconInverted)
+	{
+		m_pTaskBarIcon->SetIcon(wxIcon(hourglass_inverted), wxString::Format(wxT("%02i:%02i:%02i"), m_hours, m_minutes, m_seconds));
+	}
+	else
+	{
+		m_pTaskBarIcon->SetIcon(wxIcon(hourglass), wxString::Format(wxT("%02i:%02i:%02i"), m_hours, m_minutes, m_seconds));
+	}
 }
 
 void TimerTrayMainFrame::OnTimer( wxTimerEvent& event )
@@ -200,6 +208,7 @@ void TimerTrayMainFrame::OnTimer( wxTimerEvent& event )
 		wxLogDebug( "Timer elapsed" );
 		StopTimer();
 		UpdateLabel();
+		m_showIconInverted = false;
 		UpdateNotificationToolTip();
 		ReloadTimer();
 		TimerElapsed();
@@ -208,6 +217,7 @@ void TimerTrayMainFrame::OnTimer( wxTimerEvent& event )
 
 	UpdateNotificationToolTip();
 	UpdateLabel();
+	m_showIconInverted = !m_showIconInverted;
 
 	if ( IsIconized() == false && m_iconizeOnTimerTick == true )
 	{

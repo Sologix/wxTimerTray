@@ -5,7 +5,7 @@
 #include "MyTaskbarIcon.h"
 #include "TimerTrayAboutDlg.h"
 #include "Images/Stopwatch.xpm"
-#include "Images/Watch.xpm"
+#include "Images/hourglass.xpm"
 
 enum
 {
@@ -54,7 +54,7 @@ void MyTaskBarIcon::OnMenuAbout( wxCommandEvent& )
         pAboutDlg->SetAboutBitmap( wxBitmap( image ) );
     }
 
-    pAboutDlg->SetIcon(wxIcon(Watch));
+    pAboutDlg->SetIcon(wxIcon(hourglass));
     pAboutDlg->Layout();
     pAboutDlg->ShowModal();
 

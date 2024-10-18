@@ -30,6 +30,7 @@ class TimerTrayMainFrame : public MainFrame
 		long m_minutes = 0;
 		long m_seconds = 0;
 		bool m_iconizeOnTimerTick = true;
+		bool m_showIconInverted = false;
 
 		void LoadLastTimerSetting() const;
 		void FillComboBoxValues() const;
