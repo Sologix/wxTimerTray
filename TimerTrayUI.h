@@ -53,11 +53,14 @@ class MainFrame : public wxFrame
 		virtual void OnMinutesSelected( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnSecondsSelected( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnStartResetBtnClicked( wxCommandEvent& event ) { event.Skip(); }
-		
+
+
 	public:
 
 		MainFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("TimerTray"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 305,267 ), long style = wxCAPTION|wxCLOSE_BOX|wxFRAME_NO_TASKBAR|wxTAB_TRAVERSAL );
+
 		~MainFrame();
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////
