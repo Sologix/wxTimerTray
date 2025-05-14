@@ -10,7 +10,6 @@
 class TimerTrayApp : public wxApp
 {
   public:
-	TimerTrayApp();
     bool OnInit(void) wxOVERRIDE;
 	int OnExit(void)  wxOVERRIDE;
 	

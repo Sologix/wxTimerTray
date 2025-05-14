@@ -1,6 +1,7 @@
 #ifdef __WXMSW__
 #include <wx/msw/msvcrt.h>      // redefines the new() operator 
-#endif#include <wx/wx.h>
+#endif
+#include <wx/wx.h>
 #include <wx/menu.h>
 #include "MyTaskbarIcon.h"
 #include "TimerTrayAboutDlg.h"
@@ -38,8 +39,11 @@ void MyTaskBarIcon::OnLeftButtonDClick( wxTaskBarIconEvent& )
 
 void MyTaskBarIcon::ShowMainFrame() const
 {
-    m_pMainFrame->Raise();
-    m_pMainFrame->Show( true );
+    if (m_pMainFrame)
+    {
+        m_pMainFrame->Raise();
+        m_pMainFrame->Show(true);
+    }
 }
 
 void MyTaskBarIcon::OnMenuAbout( wxCommandEvent& )
@@ -63,7 +67,10 @@ void MyTaskBarIcon::OnMenuAbout( wxCommandEvent& )
 
 void MyTaskBarIcon::OnMenuExit( wxCommandEvent& )
 {
-    m_pMainFrame->Close(true);
+    if (m_pMainFrame)
+    {
+        m_pMainFrame->Close(true);
+    }
 }
 
 wxMenu* MyTaskBarIcon::CreatePopupMenu()

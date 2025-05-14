@@ -7,10 +7,6 @@
 
 IMPLEMENT_APP(TimerTrayApp)
 
-TimerTrayApp::TimerTrayApp()
-{
-}
-
 bool TimerTrayApp::OnInit()
 {
     m_pChecker = new wxSingleInstanceChecker();
@@ -36,13 +32,14 @@ bool TimerTrayApp::OnInit()
     }
 
     m_pMainFrame = new TimerTrayMainFrame(nullptr);
+    m_pMainFrame->Show(false);
 
 	return true;
 }
 
 int TimerTrayApp::OnExit()
 {
-    delete m_pChecker;
+	delete m_pChecker;
 
 	return 0;
 }

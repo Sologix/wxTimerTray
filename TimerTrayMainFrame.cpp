@@ -29,14 +29,16 @@ TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent )
 
 TimerTrayMainFrame::~TimerTrayMainFrame()
 {
-	delete m_pTaskBarIcon;
-
-	SaveLastTimerSetting();
-
 	if (m_timer.IsRunning())
 	{
 		m_timer.Stop();
 	}
+
+	delete m_pTaskBarIcon;
+	m_pTaskBarIcon = nullptr;
+
+	SaveLastTimerSetting();
+
 	this->Disconnect(wxEVT_TIMER, wxTimerEventHandler(TimerTrayMainFrame::OnTimer));
 }
 
@@ -126,7 +128,10 @@ void TimerTrayMainFrame::StopTimer()
 	m_timer.Stop();
 	m_startResetBtn->SetLabelText( "Start" );
 	m_iconizeOnTimerTick = false;
-	m_pTaskBarIcon->SetIcon(wxIcon(hourglass), wxString::Format(wxT("%02i:%02i:%02i"), m_hours, m_minutes, m_seconds));
+	if (m_pTaskBarIcon)
+	{
+		m_pTaskBarIcon->SetIcon(wxIcon(hourglass), wxString::Format(wxT("%02i:%02i:%02i"), m_hours, m_minutes, m_seconds));
+	}
 }
 
 void TimerTrayMainFrame::ToggleTimer()
@@ -171,7 +176,10 @@ bool TimerTrayMainFrame::Countdown()
 
 void TimerTrayMainFrame::TimerElapsed() const
 {
-	m_pTaskBarIcon->ShowBalloon("TimerTray", "Countdown finished!");
+	if (m_pTaskBarIcon)
+	{
+		m_pTaskBarIcon->ShowBalloon("TimerTray", "Countdown finished!");
+	}
 
 	wxSound::Play( "Alarm.wav" );
 }
@@ -192,13 +200,16 @@ void TimerTrayMainFrame::UpdateLabel() const
 
 void TimerTrayMainFrame::UpdateNotificationToolTip() const
 {
-	if (m_showIconInverted)
+	if (m_pTaskBarIcon)
 	{
-		m_pTaskBarIcon->SetIcon(wxIcon(hourglass_inverted), wxString::Format(wxT("%02i:%02i:%02i"), m_hours, m_minutes, m_seconds));
-	}
-	else
-	{
-		m_pTaskBarIcon->SetIcon(wxIcon(hourglass), wxString::Format(wxT("%02i:%02i:%02i"), m_hours, m_minutes, m_seconds));
+		if (m_showIconInverted)
+		{
+			m_pTaskBarIcon->SetIcon(wxIcon(hourglass_inverted), wxString::Format(wxT("%02i:%02i:%02i"), m_hours, m_minutes, m_seconds));
+		}
+		else
+		{
+			m_pTaskBarIcon->SetIcon(wxIcon(hourglass), wxString::Format(wxT("%02i:%02i:%02i"), m_hours, m_minutes, m_seconds));
+		}
 	}
 }
 
