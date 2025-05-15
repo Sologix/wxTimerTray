@@ -10,7 +10,7 @@ IMPLEMENT_APP(TimerTrayApp)
 bool TimerTrayApp::OnInit()
 {
     m_pChecker = new wxSingleInstanceChecker();
-    if ( m_pChecker->IsAnotherRunning() == true )
+    if ( m_pChecker->IsAnotherRunning() == true)
     {
         delete m_pChecker;
         m_pChecker = nullptr;
@@ -39,7 +39,7 @@ bool TimerTrayApp::OnInit()
 
 int TimerTrayApp::OnExit()
 {
-	delete m_pChecker;
+    delete m_pChecker;
 
 	return 0;
 }

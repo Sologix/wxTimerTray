@@ -20,7 +20,7 @@ public:
 #endif
 
 	void OnLeftButtonDClick( wxTaskBarIconEvent& );
-	void OnMenuOpen( wxCommandEvent& );
+	void OnMenuOpen( wxCommandEvent& ); 
 	void OnMenuAbout( wxCommandEvent& );
 	void OnMenuExit( wxCommandEvent& );
 	wxMenu* CreatePopupMenu() wxOVERRIDE;

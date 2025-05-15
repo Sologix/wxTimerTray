@@ -24,7 +24,7 @@ class TimerTrayMainFrame : public MainFrame
 #endif
 
 	protected:
-		wxTimer m_timer;
+		wxTimer* m_pTimer;
 		MyTaskBarIcon* m_pTaskBarIcon;
 		long m_hours = 0;
 		long m_minutes = 0;

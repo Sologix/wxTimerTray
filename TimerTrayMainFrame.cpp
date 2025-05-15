@@ -15,7 +15,8 @@ TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent )
 {
 	SetIcon(wxIcon(hourglass));
 
-	m_timer.SetOwner( this );
+	m_pTimer = new wxTimer();
+	m_pTimer->SetOwner( this );
 	this->Connect( wxEVT_TIMER, wxTimerEventHandler( TimerTrayMainFrame::OnTimer ) );
 
 	FillComboBoxValues();
@@ -29,17 +30,18 @@ TimerTrayMainFrame::TimerTrayMainFrame( wxWindow* parent ) : MainFrame( parent )
 
 TimerTrayMainFrame::~TimerTrayMainFrame()
 {
-	if (m_timer.IsRunning())
+	if (m_pTimer->IsRunning())
 	{
-		m_timer.Stop();
+		m_pTimer->Stop();
 	}
+
+	this->Disconnect(wxEVT_TIMER, wxTimerEventHandler(TimerTrayMainFrame::OnTimer));
+	delete m_pTimer;
 
 	delete m_pTaskBarIcon;
 	m_pTaskBarIcon = nullptr;
 
 	SaveLastTimerSetting();
-
-	this->Disconnect(wxEVT_TIMER, wxTimerEventHandler(TimerTrayMainFrame::OnTimer));
 }
 
 
@@ -77,9 +79,35 @@ void TimerTrayMainFrame::LoadLastTimerSetting() const
 {
 	wxConfig* config = new wxConfig( "TimerTray" );
 
-	m_hoursCb->SetSelection( config->ReadLong( "Hours", 0 ) );
-	m_minutesCb->SetSelection( config->ReadLong( "Minutes", 0 ) );
-	m_secondsCb->SetSelection( config->ReadLong( "Seconds", 0 ) );
+	long index = config->ReadLong("Hours", 0);
+	if (index > 0 && index < static_cast<long>(m_hoursCb->GetCount()) - 1)
+	{
+		m_hoursCb->SetSelection(config->ReadLong("Hours", 0));
+	}
+	else
+	{
+		m_hoursCb->SetSelection(0);
+	}
+
+	index = config->ReadLong("Minutes", 0);
+	if (index > 0 && index < static_cast<long>(m_minutesCb->GetCount()) - 1)
+	{
+		m_minutesCb->SetSelection(index);
+	}
+	else
+	{
+		m_minutesCb->SetSelection(0);
+	}
+
+	index = config->ReadLong("Seconds", 0);
+	if (index > 0 && index < static_cast<long>(m_secondsCb->GetCount()) - 1)
+	{
+		m_secondsCb->SetSelection(index);
+	}
+	else
+	{
+		m_secondsCb->SetSelection(0);
+	}
 
 	delete config;
 }
@@ -118,14 +146,14 @@ void TimerTrayMainFrame::FillComboBoxValues() const
 
 void TimerTrayMainFrame::StartTimer()
 {
-	m_timer.Start( 1000 );
+	m_pTimer->Start( 1000 );
 	m_startResetBtn->SetLabelText( "Reset" );
 	m_iconizeOnTimerTick = true;
 }
 
 void TimerTrayMainFrame::StopTimer()
 {
-	m_timer.Stop();
+	m_pTimer->Stop();
 	m_startResetBtn->SetLabelText( "Start" );
 	m_iconizeOnTimerTick = false;
 	if (m_pTaskBarIcon)
@@ -138,7 +166,7 @@ void TimerTrayMainFrame::ToggleTimer()
 {
 	ReloadTimer();
 
-	if ( m_timer.IsRunning() == false && ( m_hours != 0 || m_minutes != 0 || m_seconds != 0 ) )
+	if (m_pTimer->IsRunning() == false && ( m_hours != 0 || m_minutes != 0 || m_seconds != 0 ) )
 	{
 		StartTimer();
 	}
@@ -242,12 +270,12 @@ void TimerTrayMainFrame::OnStartResetBtnClicked( wxCommandEvent& event )
 {
 	ToggleTimer();
 
-	MainFrame::OnStartResetBtnClicked( event );
+	event.Skip();
 }
 
 void TimerTrayMainFrame::OnHoursSelected( wxCommandEvent& event )
 {
-	if ( m_timer.IsRunning() )
+	if (m_pTimer->IsRunning() )
 	{
 		StopTimer();
 		ReloadTimer();
@@ -257,12 +285,12 @@ void TimerTrayMainFrame::OnHoursSelected( wxCommandEvent& event )
 
 	UpdateLabel();
 
-	MainFrame::OnHoursSelected( event );
+	event.Skip();
 }
 
 void TimerTrayMainFrame::OnMinutesSelected( wxCommandEvent& event )
 {
-	if ( m_timer.IsRunning() )
+	if (m_pTimer->IsRunning() )
 	{
 		StopTimer();
 		ReloadTimer();
@@ -272,12 +300,12 @@ void TimerTrayMainFrame::OnMinutesSelected( wxCommandEvent& event )
 
 	UpdateLabel();
 
-	MainFrame::OnMinutesSelected( event );
+	event.Skip();
 }
 
 void TimerTrayMainFrame::OnSecondsSelected( wxCommandEvent& event )
 {
-	if ( m_timer.IsRunning() )
+	if (m_pTimer->IsRunning() )
 	{
 		StopTimer();
 		ReloadTimer();
@@ -287,7 +315,7 @@ void TimerTrayMainFrame::OnSecondsSelected( wxCommandEvent& event )
 	
 	UpdateLabel();
 
-	MainFrame::OnSecondsSelected( event );
+	event.Skip();
 }
 
 

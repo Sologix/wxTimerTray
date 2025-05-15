@@ -24,7 +24,6 @@
 #include <wx/frame.h>
 #include <wx/statbmp.h>
 #include <wx/dialog.h>
-#include <wx/panel.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -47,7 +46,6 @@ class MainFrame : public wxFrame
 		wxButton* m_startResetBtn;
 
 		// Virtual event handlers, overide them in your derived class
-		virtual void OnActivate( wxActivateEvent& event ) { event.Skip(); }
 		virtual void OnClose( wxCloseEvent& event ) { event.Skip(); }
 		virtual void OnHoursSelected( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnMinutesSelected( wxCommandEvent& event ) { event.Skip(); }
@@ -82,24 +80,6 @@ class AboutDlg : public wxDialog
 
 		AboutDlg( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("About"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
 		~AboutDlg();
-
-};
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class NotificationPanel
-///////////////////////////////////////////////////////////////////////////////
-class NotificationPanel : public wxPanel
-{
-	private:
-
-	protected:
-		wxStaticText* m_staticText10;
-		wxStaticText* m_staticText11;
-
-	public:
-
-		NotificationPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 200,200 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
-		~NotificationPanel();
 
 };
 

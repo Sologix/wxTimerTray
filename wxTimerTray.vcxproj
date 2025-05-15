@@ -93,8 +93,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\wxWidgets-3.1.3\include\msvc;C:\wxWidgets-3.1.3\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\wxWidgets-3.1.3\lib\vc_x64_lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WXWIN)\include\msvc;$(WXWIN)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(WXWIN)\lib\vc_x64_lib;$(LibraryPath)</LibraryPath>
     <TargetName>TimerTray</TargetName>
     <IntDir>$(SolutionDir)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
