@@ -73,6 +73,7 @@ class AboutDlg : public wxDialog
 		wxStaticText* m_staticText5;
 		wxStaticText* m_staticText6;
 		wxStaticText* m_staticText7;
+		wxStaticText* m_staticText9;
 		wxStaticText* m_versionLbl;
 		wxButton* m_button2;
 

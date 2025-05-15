@@ -135,11 +135,17 @@ AboutDlg::AboutDlg( wxWindow* parent, wxWindowID id, const wxString& title, cons
 
 	m_staticText6 = new wxStaticText( this, wxID_ANY, wxT("(c) 2025 BigPilot"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText6->Wrap( -1 );
+	m_staticText6->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
+
 	bSizer9->Add( m_staticText6, 5, wxALIGN_CENTER_HORIZONTAL|wxTOP, 5 );
 
 	m_staticText7 = new wxStaticText( this, wxID_ANY, wxT("Licensed under the GPLv3"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText7->Wrap( -1 );
 	bSizer9->Add( m_staticText7, 0, wxALIGN_CENTER_HORIZONTAL|wxBOTTOM|wxLEFT|wxRIGHT, 5 );
+
+	m_staticText9 = new wxStaticText( this, wxID_ANY, wxT("Icons by Solar Icons"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText9->Wrap( -1 );
+	bSizer9->Add( m_staticText9, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
 
 
 	bSizer9->Add( 0, 0, 1, wxEXPAND, 5 );
