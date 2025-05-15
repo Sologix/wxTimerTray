@@ -2,7 +2,7 @@
 
 [Setup]
 AppName=TimerTray
-AppVerName=TimerTray Version 2.1
+AppVerName=TimerTray Version 2.2
 DefaultDirName={pf}\TimerTray
 DefaultGroupName=TimerTray
 UninstallDisplayIcon={app}\TimerTray.exe
