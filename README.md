@@ -7,5 +7,5 @@ This is the latest version of TimerTray, the previous version was written in C# 
 
 <img src="download.svg" alt="Download Windows installer" width=64/>
 
-**You can download the installer [here](/Installer/Output/setup.exe?raw=true).**
+**You can download the installer [here](/Installer/Output/mysetup.exe?raw=true).**
 
