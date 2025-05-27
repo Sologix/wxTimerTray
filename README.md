@@ -7,5 +7,5 @@ This is the latest version of TimerTray, the previous version was written in C# 
 
 <img src="Download.png" style="display: block; margin: auto;" alt="Download Windows installer" width=300/>
 
-[<img src="Windows.svg" style="display: block; margin: auto;" alt="Download Windows installer" width=200/>](/Installer/Output/mysetup.exe?raw=true)
+[<img src="Windows.svg" style="display: block; margin: auto; padding: 10px;" alt="Download Windows installer" width=200/>](/Installer/Output/mysetup.exe?raw=true)
 
