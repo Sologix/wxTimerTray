@@ -6,5 +6,6 @@
 This is the latest version of TimerTray, the previous version was written in C# and required the .NET Runtime. This new version is written in C++ using the wxWidgets multi-platform framework. It requires no runtime and Linux and Mac OS X versions will be available in the future.
 
 <img src="Download.png" alt="Download" width="300"/>
-[<img src="Windows.svg" alt="Download Windows installer" width="200"/>](/Installer/Output/mysetup.exe?raw=true)
+<img src="Windows.svg" alt="Download Windows installer" width="200"/>
+Download the installer [here](/Installer/Output/mysetup.exe?raw=true)
 
